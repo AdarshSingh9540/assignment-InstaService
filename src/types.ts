@@ -8,6 +8,7 @@ export interface Service {
     image: string;
   }
   
+  
   export interface CartItem {
     service: Service;
     quantity: number;

@@ -1,22 +1,22 @@
-import React from 'react';
-import { Customer } from '../types';
+import React from "react"
+import type { Customer } from "../types"
 
 interface CustomerFormProps {
-  onSubmit: (customer: Customer) => void;
+  onSubmit: (customer: Customer) => void
 }
 
 export function CustomerForm({ onSubmit }: CustomerFormProps) {
   const [customer, setCustomer] = React.useState<Customer>({
-    name: '',
-    email: '',
-    phone: '',
-    billingAddress: ''
-  });
+    name: "",
+    email: "",
+    phone: "",
+    billingAddress: "",
+  })
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onSubmit(customer);
-  };
+    e.preventDefault()
+    onSubmit(customer)
+  }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -28,7 +28,7 @@ export function CustomerForm({ onSubmit }: CustomerFormProps) {
           type="text"
           id="name"
           required
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2"
           value={customer.name}
           onChange={(e) => setCustomer({ ...customer, name: e.target.value })}
         />
@@ -41,7 +41,7 @@ export function CustomerForm({ onSubmit }: CustomerFormProps) {
           type="email"
           id="email"
           required
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2"
           value={customer.email}
           onChange={(e) => setCustomer({ ...customer, email: e.target.value })}
         />
@@ -54,7 +54,7 @@ export function CustomerForm({ onSubmit }: CustomerFormProps) {
           type="tel"
           id="phone"
           required
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2"
           value={customer.phone}
           onChange={(e) => setCustomer({ ...customer, phone: e.target.value })}
         />
@@ -67,7 +67,7 @@ export function CustomerForm({ onSubmit }: CustomerFormProps) {
           id="billingAddress"
           required
           rows={3}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2"
           value={customer.billingAddress}
           onChange={(e) => setCustomer({ ...customer, billingAddress: e.target.value })}
         ></textarea>
@@ -79,5 +79,6 @@ export function CustomerForm({ onSubmit }: CustomerFormProps) {
         Continue to Payment
       </button>
     </form>
-  );
+  )
 }
+

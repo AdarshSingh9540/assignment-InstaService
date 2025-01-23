@@ -1,5 +1,5 @@
-import { CartItem } from '../types';
-import { Cart } from '../components/Cart';
+import { CartItem } from "../types";
+import { Cart } from "../components/Cart";
 
 interface CartPageProps {
   items: CartItem[];
@@ -8,9 +8,14 @@ interface CartPageProps {
   onContinue: () => void;
 }
 
-export function CartPage({ items, onUpdateQuantity, onRemoveItem, onContinue }: CartPageProps) {
+export function CartPage({
+  items,
+  onUpdateQuantity,
+  onRemoveItem,
+  onContinue,
+}: CartPageProps) {
   return (
-    <div className="max-w-2xl mx-auto px-4 py-8">
+    <div className="max-w-2xl mx-auto px-4 py-24">
       <h1 className="text-2xl font-bold mb-6">Shopping Cart</h1>
       <Cart
         items={items}

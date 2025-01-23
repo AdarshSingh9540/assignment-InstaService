@@ -4,45 +4,22 @@ import { ServicesPage } from "./Pages/ServicesPage";
 import { CartPage } from "./Pages/CartPage";
 import { CheckoutPage } from "./Pages/ChechkoutPage";
 import { Receipt } from "./components/Receipt";
-import { Service, CartItem, Customer, Receipt as ReceiptType } from "./types";
+import type { Customer, Receipt as ReceiptType } from "./types";
 import { Footer } from "./components/layout/Footer";
+import { useCartStore } from "./store/cartStore";
 
 type Page = "services" | "cart" | "checkout" | "receipt";
 
 function App() {
   const [currentPage, setCurrentPage] = useState<Page>("services");
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [receipt, setReceipt] = useState<ReceiptType | null>(null);
 
-  const handleAddToCart = (service: Service) => {
-    setCartItems((items) => {
-      const existingItem = items.find((item) => item.service.id === service.id);
-      if (existingItem) {
-        return items.map((item) =>
-          item.service.id === service.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        );
-      }
-      return [...items, { service, quantity: 1 }];
-    });
-  };
-
-  const handleUpdateQuantity = (serviceId: string, change: number) => {
-    setCartItems((items) =>
-      items.map((item) =>
-        item.service.id === serviceId
-          ? { ...item, quantity: Math.max(1, item.quantity + change) }
-          : item
-      )
-    );
-  };
-
-  const handleRemoveItem = (serviceId: string) => {
-    setCartItems((items) =>
-      items.filter((item) => item.service.id !== serviceId)
-    );
-  };
+  const {
+    items: cartItems,
+    clearCart,
+    updateQuantity,
+    removeItem,
+  } = useCartStore();
 
   const handleCustomerSubmit = (customer: Customer) => {
     const total = cartItems.reduce(
@@ -57,7 +34,7 @@ function App() {
       date: new Date().toISOString(),
     };
     setReceipt(receipt);
-    setCartItems([]);
+    clearCart();
     setCurrentPage("receipt");
   };
 
@@ -72,22 +49,20 @@ function App() {
   );
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-gray-100 ">
       <Navbar
         cartItemsCount={cartItemsCount}
         onCartClick={() => setCurrentPage("cart")}
         onLogoClick={() => setCurrentPage("services")}
       />
 
-      {currentPage === "services" && (
-        <ServicesPage onAddToCart={handleAddToCart} />
-      )}
+      {currentPage === "services" && <ServicesPage />}
 
       {currentPage === "cart" && (
         <CartPage
           items={cartItems}
-          onUpdateQuantity={handleUpdateQuantity}
-          onRemoveItem={handleRemoveItem}
+          onUpdateQuantity={updateQuantity}
+          onRemoveItem={removeItem}
           onContinue={() => setCurrentPage("checkout")}
         />
       )}

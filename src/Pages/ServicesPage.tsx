@@ -1,28 +1,30 @@
-import React from 'react';
-import { Search, Filter } from 'lucide-react';
-import { ServiceCard } from '../components/ServiceCard';
-import { Service } from '../types';
-import { services } from '../data/Services';
+import React from "react";
+import { Search, Filter } from "lucide-react";
+import { ServiceCard } from "../components/ServiceCard";
+import { services } from "../data/Services";
+import { useCartStore } from "../store/cartStore";
 
-interface ServicesPageProps {
-  onAddToCart: (service: Service) => void;
-}
+export function ServicesPage() {
+  const [searchTerm, setSearchTerm] = React.useState("");
+  const [selectedCategory, setSelectedCategory] = React.useState("");
 
-export function ServicesPage({ onAddToCart }: ServicesPageProps) {
-  const [searchTerm, setSearchTerm] = React.useState('');
-  const [selectedCategory, setSelectedCategory] = React.useState('');
+  const addItem = useCartStore((state) => state.addItem);
 
-  const categories = Array.from(new Set(services.map(service => service.category)));
+  const categories = Array.from(
+    new Set(services.map((service) => service.category))
+  );
 
-  const filteredServices = services.filter(service => {
-    const matchesSearch = service.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         service.description.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = !selectedCategory || service.category === selectedCategory;
+  const filteredServices = services.filter((service) => {
+    const matchesSearch =
+      service.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      service.description.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory =
+      !selectedCategory || service.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
+    <div className="max-w-7xl mx-auto px-4 py-24">
       <div className="mb-6 space-y-4">
         <div className="flex items-center space-x-4">
           <div className="flex-1 relative">
@@ -42,8 +44,10 @@ export function ServicesPage({ onAddToCart }: ServicesPageProps) {
               onChange={(e) => setSelectedCategory(e.target.value)}
             >
               <option value="">All Categories</option>
-              {categories.map(category => (
-                <option key={category} value={category}>{category}</option>
+              {categories.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
               ))}
             </select>
             <Filter className="absolute left-3 top-2.5 text-gray-400 w-5 h-5" />
@@ -52,11 +56,11 @@ export function ServicesPage({ onAddToCart }: ServicesPageProps) {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredServices.map(service => (
+        {filteredServices.map((service) => (
           <ServiceCard
             key={service.id}
             service={service}
-            onAddToCart={onAddToCart}
+            onAddToCart={addItem}
           />
         ))}
       </div>

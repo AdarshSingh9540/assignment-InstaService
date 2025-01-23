@@ -1,4 +1,4 @@
-import { ShoppingCart } from 'lucide-react';
+import { ShoppingCart } from "lucide-react";
 
 interface NavbarProps {
   cartItemsCount: number;
@@ -6,18 +6,22 @@ interface NavbarProps {
   onLogoClick: () => void;
 }
 
-export function Navbar({ cartItemsCount, onCartClick, onLogoClick }: NavbarProps) {
+export function Navbar({
+  cartItemsCount,
+  onCartClick,
+  onLogoClick,
+}: NavbarProps) {
   return (
-    <nav className="bg-white shadow-md">
+    <nav className="bg-white shadow-md fixed top-0 left-0 w-full z-10">
       <div className="max-w-7xl mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
-          <button 
+          <button
             onClick={onLogoClick}
             className="text-xl font-bold text-blue-600 hover:text-blue-700"
           >
-           InstaService
+            InstaService
           </button>
-          <button 
+          <button
             onClick={onCartClick}
             className="relative p-2 hover:bg-gray-100 rounded-full"
           >

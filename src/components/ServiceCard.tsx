@@ -1,16 +1,20 @@
-import { Clock, Plus } from 'lucide-react';
-import { Service } from '../types';
+import type React from "react";
+import { Clock, Plus } from "lucide-react";
+import type { Service } from "../types";
+import { useCartStore } from "../store/cartStore";
 
 interface ServiceCardProps {
   service: Service;
   onAddToCart: (service: Service) => void;
 }
 
-export function ServiceCard({ service, onAddToCart }: ServiceCardProps) {
+export function ServiceCard({ service }: ServiceCardProps): React.ReactElement {
+  const addItem = useCartStore((state) => state.addItem);
+
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden">
-      <img 
-        src={service.image} 
+    <div className="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 ease-in-out hover:scale-105">
+      <img
+        src={service.image || "/placeholder.svg"}
         alt={service.name}
         className="w-full h-48 object-cover"
       />
@@ -28,8 +32,8 @@ export function ServiceCard({ service, onAddToCart }: ServiceCardProps) {
             <span className="text-sm">{service.duration}</span>
           </div>
           <button
-            onClick={() => onAddToCart(service)}
-            className="flex items-center px-3 py-1.5 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+            onClick={() => addItem(service)}
+            className="flex items-center px-3 py-1.5 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors cursor-pointer"
           >
             <Plus className="w-4 h-4 mr-1" />
             Add

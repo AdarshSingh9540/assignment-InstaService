@@ -7,7 +7,7 @@ interface CheckoutPageProps {
 
 export function CheckoutPage({ onSubmit }: CheckoutPageProps) {
   return (
-    <div className="max-w-md mx-auto px-4 py-8">
+    <div className="max-w-md mx-auto px-4 py-24">
       <h1 className="text-2xl font-bold mb-6">Customer Information</h1>
       <div className="bg-white p-6 rounded-lg shadow-md">
         <CustomerForm onSubmit={onSubmit} />
