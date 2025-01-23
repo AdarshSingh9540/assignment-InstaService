@@ -1,50 +1,53 @@
-# React + TypeScript + Vite
+InstaService - Service Booking App
+InstaService is a service booking application that allows users to browse available services, add them to a shopping cart, and proceed to checkout. The application uses React, Zustand for state management, and Vite as the build tool. This README will guide you through setting up and running the project locally.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Features
+Service Listing: Users can browse a list of services, view their details (price, description, duration), and add them to their cart.
+Shopping Cart: Users can view their cart, update item quantities, and remove items.
+Checkout: Users can fill out customer details and complete their order.
+Receipt: After successful checkout, users can see their receipt with an order summary.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Tech Stack
+React: Frontend library for building user interfaces.
+Zustand: Lightweight state management for managing the cart and services.
+Lucide-React: Icon library for displaying icons like the shopping cart, trash, and plus/minus buttons.
+Tailwind CSS: Utility-first CSS framework for rapid UI development.
+Vite: Next-generation build tool that provides fast development and production builds.
+Prerequisites
+Before you can run the project locally, make sure you have the following installed on your machine:
 
-## Expanding the ESLint configuration
+Node.js (version 14 or higher)
+npm (comes with Node.js)
+Setup and Installation
+Clone the repository:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Open your terminal and run the following command to clone the repository:
 
-- Configure the top-level `parserOptions` property like this:
+bash
+Copy
+git clone https://github.com/yourusername/instaservice.git
+Navigate into the project directory:
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+bash
+Copy
+cd instaservice
+Install dependencies:
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Install the required dependencies using npm (or yarn, if preferred):
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+bash
+Copy
+npm install
+This will install all the necessary packages listed in package.json.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+Start the development server:
+
+To start the development server and open the app in your browser, run:
+
+bash
+Copy
+npm run dev
+By default, the app will be available at http://localhost:5173.
+
+You should see the InstaService application running with all the features, such as browsing services, adding to the cart, and completing the checkout.
