@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Navbar } from "./components/layout/Navbar";
 import { ServicesPage } from "./Pages/ServicesPage";
 import { CartPage } from "./Pages/CartPage";
