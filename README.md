@@ -1,13 +1,6 @@
 InstaService - Service Booking App
 InstaService is a service booking application that allows users to browse available services, add them to a shopping cart, and proceed to checkout. The application uses React, Zustand for state management, and Vite as the build tool. This README will guide you through setting up and running the project locally.
 
-Features
-Service Listing: Users can browse a list of services, view their details (price, description, duration), and add them to their cart.
-Shopping Cart: Users can view their cart, update item quantities, and remove items.
-Checkout: Users can fill out customer details and complete their order.
-Receipt: After successful checkout, users can see their receipt with an order summary.
-
-
 Tech Stack
 React: Frontend library for building user interfaces.
 Zustand: Lightweight state management for managing the cart and services.
