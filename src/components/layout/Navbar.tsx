@@ -16,7 +16,7 @@ export function Navbar({ cartItemsCount }: NavbarProps) {
             to="/"
             className="text-xl font-bold text-blue-600 hover:text-blue-700"
           >
-            ServicePOS
+            InstaService
           </Link>
           <button
             onClick={() => navigate("/cart")}
