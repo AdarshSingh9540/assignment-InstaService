@@ -1,28 +1,25 @@
 import { ShoppingCart } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 
 interface NavbarProps {
   cartItemsCount: number;
-  onCartClick: () => void;
-  onLogoClick: () => void;
 }
 
-export function Navbar({
-  cartItemsCount,
-  onCartClick,
-  onLogoClick,
-}: NavbarProps) {
+export function Navbar({ cartItemsCount }: NavbarProps) {
+  const navigate = useNavigate();
+
   return (
-    <nav className="bg-white shadow-md fixed top-0 left-0 w-full z-10">
+    <nav className="bg-white shadow-md">
       <div className="max-w-7xl mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
-          <button
-            onClick={onLogoClick}
+          <Link
+            to="/"
             className="text-xl font-bold text-blue-600 hover:text-blue-700"
           >
-            InstaService
-          </button>
+            ServicePOS
+          </Link>
           <button
-            onClick={onCartClick}
+            onClick={() => navigate("/cart")}
             className="relative p-2 hover:bg-gray-100 rounded-full"
           >
             <ShoppingCart className="w-6 h-6" />

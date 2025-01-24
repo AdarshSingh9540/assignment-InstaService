@@ -1,14 +1,9 @@
 import type React from "react";
 import { ShoppingCart, Trash2, Plus, Minus } from "lucide-react";
 import { useCartStore } from "../store/cartStore";
-import { CartItem } from "../types"; 
-
 interface CartProps {
-    items: CartItem[];  
-    onUpdateQuantity: (serviceId: string, change: number) => void; 
-    onRemoveItem: (serviceId: string) => void;  
-    onCheckout: () => void;
-  }
+  onCheckout: () => void;
+}
 
 export function Cart({ onCheckout }: CartProps): React.ReactElement {
   const { items, removeItem, updateQuantity } = useCartStore();
@@ -19,63 +14,101 @@ export function Cart({ onCheckout }: CartProps): React.ReactElement {
 
   if (items.length === 0) {
     return (
-      <div className="bg-white p-4 rounded-lg shadow-md">
-        <div className="flex items-center justify-center text-gray-500 py-8">
-          <ShoppingCart className="w-6 h-6 mr-2" />
-          <span>Your cart is empty</span>
+      <div className="bg-white rounded-lg shadow-md p-8 text-center">
+        <div className="flex flex-col items-center justify-center space-y-4">
+          <div className="w-24 h-24 bg-gray-50 rounded-full flex items-center justify-center">
+            <ShoppingCart className="w-12 h-12 text-gray-400" />
+          </div>
+          <h3 className="text-xl font-semibold text-gray-700">
+            Your cart is empty
+          </h3>
+          <p className="text-gray-500">Add some services to get started!</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md">
-      <h2 className="text-xl font-semibold mb-4">Shopping Cart</h2>
-      <div className="space-y-4">
-        {items.map((item) => (
-          <div
-            key={item.service.id}
-            className="flex items-center justify-between pb-4 border-b"
-          >
-            <div className="flex-1">
-              <h3 className="font-medium">{item.service.name}</h3>
-              <p className="text-sm text-gray-500">
-                ${item.service.price.toFixed(2)}
-              </p>
+    <div className="bg-white rounded-lg shadow-md ">
+      <div className="p-6">
+        <h2 className="text-2xl font-bold text-gray-800 mb-6">Your Cart</h2>
+        <div className="space-y-6">
+          {items.map((item) => (
+            <div
+              key={item.service.id}
+              className="flex items-center space-x-4 pb-6 border-b border-gray-100 last:border-0"
+            >
+              <div className="w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden">
+                <img
+                  src={item.service.image}
+                  alt={item.service.name}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex justify-between items-start mb-2">
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-800 mb-1">
+                      {item.service.name}
+                    </h3>
+                    <p className="text-sm text-gray-500">
+                      {item.service.duration}
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => removeItem(item.service.id)}
+                    className="p-1.5 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-full transition-colors"
+                  >
+                    <Trash2 className="w-5 h-5" />
+                  </button>
+                </div>
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center space-x-1 bg-gray-50 rounded-lg p-1">
+                    <button
+                      onClick={() => updateQuantity(item.service.id, -1)}
+                      className="p-1.5 rounded-md hover:bg-white hover:shadow-sm transition-all"
+                      disabled={item.quantity <= 1}
+                    >
+                      <Minus className="w-4 h-4" />
+                    </button>
+                    <span className="w-8 text-center font-medium">
+                      {item.quantity}
+                    </span>
+                    <button
+                      onClick={() => updateQuantity(item.service.id, 1)}
+                      className="p-1.5 rounded-md hover:bg-white hover:shadow-sm transition-all"
+                    >
+                      <Plus className="w-4 h-4" />
+                    </button>
+                  </div>
+                  <div className="text-lg font-semibold text-gray-800">
+                    ${(item.service.price * item.quantity).toFixed(2)}
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="flex items-center space-x-3">
-              <button
-                onClick={() => updateQuantity(item.service.id, -1)}
-                className="p-1 rounded-md hover:bg-gray-100"
-                disabled={item.quantity <= 1}
-              >
-                <Minus className="w-4 h-4" />
-              </button>
-              <span className="w-8 text-center">{item.quantity}</span>
-              <button
-                onClick={() => updateQuantity(item.service.id, 1)}
-                className="p-1 rounded-md hover:bg-gray-100"
-              >
-                <Plus className="w-4 h-4" />
-              </button>
-              <button
-                onClick={() => removeItem(item.service.id)}
-                className="p-1 text-red-500 hover:bg-red-50 rounded-md"
-              >
-                <Trash2 className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-      <div className="mt-4 pt-4 border-t">
-        <div className="flex justify-between items-center mb-4">
-          <span className="font-semibold">Total:</span>
-          <span className="text-xl font-bold">${total.toFixed(2)}</span>
+
+      <div className="border-t border-gray-100 p-6 bg-gray-50 rounded-b-lg">
+        <div className="space-y-3 mb-6">
+          <div className="flex justify-between text-gray-600">
+            <span>Subtotal</span>
+            <span>${total.toFixed(2)}</span>
+          </div>
+          <div className="flex justify-between text-gray-600">
+            <span>Service Fee</span>
+            <span>$0.00</span>
+          </div>
+          <div className="flex justify-between text-lg font-semibold text-gray-800 pt-3 border-t">
+            <span>Total</span>
+            <span>${total.toFixed(2)}</span>
+          </div>
         </div>
         <button
           onClick={onCheckout}
-          className="w-full py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors"
+          className="w-full py-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition-colors focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
         >
           Proceed to Checkout
         </button>

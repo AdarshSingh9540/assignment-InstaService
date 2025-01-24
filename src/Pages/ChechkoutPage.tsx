@@ -1,16 +1,24 @@
-import { CustomerForm } from '../components/CustomerForm';
-import { Customer } from '../types';
+import { useNavigate } from "react-router-dom";
+import { CustomerForm } from "../components/CustomerForm";
+import { Customer } from "../types";
+import { useCartStore } from "../store/cartStore";
 
-interface CheckoutPageProps {
-  onSubmit: (customer: Customer) => void;
-}
+export function CheckoutPage() {
+  const navigate = useNavigate();
+  const { items } = useCartStore();
 
-export function CheckoutPage({ onSubmit }: CheckoutPageProps) {
+  const handleSubmit = (customer: Customer) => {
+    localStorage.setItem("customerInfo", JSON.stringify(customer));
+    if (items.length > 0) {
+      navigate("/payment");
+    }
+  };
+
   return (
-    <div className="max-w-md mx-auto px-4 py-24">
+    <div className="max-w-md mx-auto px-4 py-28">
       <h1 className="text-2xl font-bold mb-6">Customer Information</h1>
       <div className="bg-white p-6 rounded-lg shadow-md">
-        <CustomerForm onSubmit={onSubmit} />
+        <CustomerForm onSubmit={handleSubmit} />
       </div>
     </div>
   );

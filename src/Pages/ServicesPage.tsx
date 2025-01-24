@@ -24,7 +24,7 @@ export function ServicesPage() {
   });
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-24">
+    <div className="max-w-7xl mx-auto px-4 py-10">
       <div className="mb-6 space-y-4">
         <div className="flex items-center space-x-4">
           <div className="flex-1 relative">
