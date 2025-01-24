@@ -15,7 +15,7 @@ export function CheckoutPage() {
   };
 
   return (
-    <div className="max-w-md mx-auto px-4 py-28">
+    <div className="max-w-md mx-auto px-4 py-12">
       <h1 className="text-2xl font-bold mb-6">Customer Information</h1>
       <div className="bg-white p-6 rounded-lg shadow-md">
         <CustomerForm onSubmit={handleSubmit} />
